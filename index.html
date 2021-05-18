@@ -16,10 +16,6 @@
 </head>
 
 
-<!--<form>
-  <span id="todo-item">To Do Item: <input id="to-do" type="text" /><input id="add-to-do" value="Add Item"
-      type="submit" /></span>
-</form> <!-->
 
 <body>
   <header class="jumbotron">
@@ -215,6 +211,20 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <script type="text/javascript">
+      $("#saveBtn").on("click", function (event) {
+        event.preventDefault();
+
+        console.log()
+
+        var toDoEntry = $(".form-control").val().trim();
+
+        entry.push(toDoEntry)
+      }
+
+    </script>
+
 </body>
 
 </html>
