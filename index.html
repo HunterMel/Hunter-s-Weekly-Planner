@@ -213,15 +213,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
     <script type="text/javascript">
+      var entry = localStorage.setItem("userTasks", JSON.stringify(entry)) || [];
+
+
+
+
+      function saveTask(entry) {
+        $(".form-control").();
+      }
+
+
+      //retrieving user task entry from local storyage 
       $("#saveBtn").on("click", function (event) {
         event.preventDefault();
 
-        console.log()
+        //console.log()
 
         var toDoEntry = $(".form-control").val().trim();
-
+        //define entry var above 
         entry.push(toDoEntry)
-      }
+        //define savetask function above
+        saveTask(entry)
+        //retrieving usertask entry from local storage 
+
+        JSON.parse(localStorage.getItem("userTask"));
+
+      });
+
+      saveTask(entry)
 
     </script>
 
