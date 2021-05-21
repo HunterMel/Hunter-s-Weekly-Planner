@@ -34,7 +34,7 @@
           <span class="input-group-text" id="inputGroup-sizing-lg">9 am</span>
         </div>
 
-        <input type="text" class="form-control" aria-label="Sizing example input"
+        <input custom-data="9" type="text" class="form-control" aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-lg">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button" id="saveBtn">
@@ -52,7 +52,7 @@
           <span class="input-group-text" id="inputGroup-sizing-lg">10 am</span>
         </div>
 
-        <input type="text" class="form-control" aria-label="Sizing example input"
+        <input custom-data="10" type="text" class="form-control" aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-lg">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button" id="saveBtn">
@@ -187,34 +187,112 @@
 
   <script type="text/javascript">
 
+
+    var displayDate = new Date().toLocaleDateString(undefined, {
+      weekday: 'long', year:
+        'numeric', month: 'long', day: 'numeric'
+    })
+    $(document).ready(function () {
+      $("#currentDay").append(displayDate)
+
+
+    })
+
+    //event listener
+    // $(".btn").on("click", function (event) {
+    //   event.preventDefault();
+    // })
+    //console.log(event);
+
+    $(document).ready(function () {
+
+      var myEntries = JSON.parse(localStorage.getItem('userEntry')) || [];
+
+      // render saved data
+      var allInputForms = $('.form-control')
+
+      console.log(allInputForms)
+
+      for (let i = 0; i < allInputForms.length; i++) {
+        var currentInputForm = allInputForms[i];
+        var myText = '';
+
+        for (let j = 0; j < myEntries.length; j++) {
+          var currentCustomData = $(currentInputForm).attr('custom-data');
+
+          var currentEntry = myEntries[j];
+
+          if (currentCustomData == currentEntry.hour) {
+            myText = currentEntry.text;
+          }
+        }
+
+        $(currentInputForm).val(myText)
+      }
+
+      $('.btn').on('click', function () {
+        var toDoEntry = $(this).closest("div.input-group").find("input[class='form-control']").val();
+
+        var customData = $(this).closest("div.input-group").find("input[class='form-control']").attr('custom-data')
+        //alert(toDoEntry);
+
+        var entryObj = {
+          hour: customData,
+          text: toDoEntry
+        }
+
+        var alreadyExist = false;
+
+        for (let j = 0; j < myEntries.length; j++) {
+          var currentEntry = myEntries[j];
+
+          if (customData == currentEntry.hour) {
+            myEntries[j].text = toDoEntry;
+            alreadyExist = true;
+          }
+        }
+
+        if (!alreadyExist) {
+          myEntries.push(entryObj);
+        }
+
+        localStorage.setItem("userEntry", JSON.stringify(myEntries))
+        //console.log(toDoEntry
+      })
+
+    })
+
+
+
+
     // var entry = JSON.parse(localStorage.setItem("userTasks", textValue) || [];
 
 
 
 
-    function saveTask(entry) {
+    //function saveTask(entry) {
 
-    }
+    //}
 
 
     //click to save to local storyage 
-    $("#saveBtn").on("click", function (event) {
-      event.preventDefault();
+    //$("#saveBtn").on("click", function (event) {
+      //event.preventDefault();
 
       //console.log()
 
-      var toDoEntry = $(".form-control").val().trim();
+      //var toDoEntry = $(".form-control").val().trim();
       //define entry var above 
-      entry.push(toDoEntry)
+      //entry.push(toDoEntry)
       //define savetask function above
-      saveTask(entry)
+      //saveTask(entry)
       //retrieving usertask entry from local storage 
 
-      localStorage.getItem("userTask", JSON.stringify(entry));
+      //localStorage.getItem("userTask", JSON.stringify(entry));
 
-    });
+    //});
 
-    saveTask(entry)
+    //saveTask(entry)
 
   </script>
 
