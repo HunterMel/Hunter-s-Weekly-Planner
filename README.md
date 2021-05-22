@@ -1,1 +1,1 @@
-# Hunter's-Weekly-Planner By: Hunter Johnson
+# Hunter's Weekly Planner By: Hunter Johnson
